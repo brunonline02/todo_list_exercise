@@ -17,7 +17,7 @@ function deleteItem(i) {
 input.addEventListener("keyup", function(send) {
     if (send.key === "Enter") {
         const newInput = {
-            dene: false,
+            done: false,
             text: input.value
         }
         todoItems.unshift(newInput)
@@ -26,11 +26,18 @@ input.addEventListener("keyup", function(send) {
     }
 })
 
+function toggleDone(i) {
+    todoItems[i].done = !todoItems[i].done
+    render()
+}
+
 
 function render() {
     const newRender = todoItems
     .map((item, i) => `<li>${item.text}</li>
-    <button onclick="deleteItem(${i})">🗑</button>`)
+    <button onclick="deleteItem(${i})">🗑</button>
+    <button onclick="toggleDone(${i})">${item.done ? "✅" : "⛔️"}</button>
+    `)
     .join("")
     list.innerHTML = newRender
 }
